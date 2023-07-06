@@ -1,8 +1,14 @@
-version: 1
 services:
-  - name: app
-    env:
-      APPLICATION_KEY: 31005816-9090-4eec-a74c-4237706545b9
-    buildCommand: docker build -t <nombre-de-la-imagen> .
-    startCommand: docker run -p 80:80 <nombre-de-la-imagen>
+  - type: web
+    name: otohits-app
+    runtime: docker
+    repo: otohits/app
+    region: oregon
+    plan: standard
+    rootDir: .
+    dockerCommand: /otohits/run.sh
+    numInstances: 1
     healthCheckPath: /
+    envVars:
+      - key: APPLICATION_KEY
+        value: "31005816-9090-4eec-a74c-4237706545b9"
