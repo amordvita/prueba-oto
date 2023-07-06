@@ -4,7 +4,7 @@ services:
     runtime: docker
     repo: https://github.com/amordvita/prueba-oto.git
     region: oregon
-    plan: standard
+    plan: free
     rootDir: .
     dockerCommand: /otohits/run.sh
     numInstances: 1
