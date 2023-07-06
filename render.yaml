@@ -1,19 +1,16 @@
 services:
   - name: app
     env:
-      APPLICATION_KEY: 31005816-9090-4eec-a74c-4237706545b9
-    dockerfile: Dockerfile
-    port: 80
+      APPLICATION_KEY: "31005816-9090-4eec-a74c-4237706545b9"
     envSecrets:
       - source: APPLICATION_KEY
-
-build:
-  - name: app
-    context: .
-    dockerfile: Dockerfile
+    buildCommand: "docker build -t $RENDER_SERVICE_NAME -f Dockerfile ."
+    startCommand: "docker run -p $PORT:$PORT $RENDER_SERVICE_NAME"
 
 routes:
-  - path: /*
-    destination:
-      port: 80
-      service: app
+  - path: "/*"
+    memory: 512M
+    concurrency:
+      hard: 10
+      soft: 5
+    includeRequestBody: true
