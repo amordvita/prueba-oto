@@ -1,5 +1,19 @@
-metadata:
-  name: prueba-oto
-  short-description: ##
-  long-description: |
-    ####
+services:
+  - name: app
+    env:
+      APPLICATION_KEY: 31005816-9090-4eec-a74c-4237706545b9
+    dockerfile: Dockerfile
+    port: 80
+    envSecrets:
+      - source: APPLICATION_KEY
+
+build:
+  - name: app
+    context: .
+    dockerfile: Dockerfile
+
+routes:
+  - path: /*
+    destination:
+      port: 80
+      service: app
